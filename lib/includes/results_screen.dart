@@ -4,14 +4,15 @@ import 'package:myapp/includes/summary_data.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen({super.key, 
-  required this.choosenAnswers, required this.restartQuiz});
+  required this.choosenAnswers, required this.restartQuiz, required this.numQuestions});
 
   final List<String> choosenAnswers;
   final void Function() restartQuiz;
+  final int numQuestions;
 
   List<Map<String, Object>> getSummaryData() {
     final List<Map<String, Object>> summary = [];
-    for (var i = 0; i < choosenAnswers.length; i++) {
+    for (var i = 0; i < numQuestions; i++) {
       summary.add({
         'question_index': i,
         'question': questions[i].question,
@@ -25,7 +26,7 @@ class ResultsScreen extends StatelessWidget {
   @override
   Widget build(context) {
     final varSummaryData = getSummaryData();
-    final numTotalQuestions = questions.length;
+    final numTotalQuestions = numQuestions;
     final numCorrectAnswers =
         varSummaryData.where((data) {
           return data['correct_answer'] == data['user_answer'];

@@ -4,9 +4,10 @@ import 'package:myapp/includes/answer_button.dart';
 import 'package:myapp/data/questions.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key, required this.onSelectAnswer});
+  const QuestionsScreen({super.key, required this.onSelectAnswer, required this.numQuestions});
 
   final void Function(String answer) onSelectAnswer;
+  final int numQuestions;
 
   @override
   State<QuestionsScreen> createState() {
@@ -19,9 +20,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void answerQuestion(String selectedAnswer) {
     widget.onSelectAnswer(selectedAnswer);
-    setState(() {
+
+   while (currentQueIndex < widget.numQuestions) {
+         setState(() {
       currentQueIndex++;
     });
+    return;
+   }
+
   }
 
   @override
@@ -38,7 +44,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('Question ${currentQueIndex + 1} Out of ${questions.length}',
+                Text('Question ${currentQueIndex + 1} Out of ${widget.numQuestions}',
                 style: TextStyle(
                   color: const Color.fromARGB(255, 211, 224, 239)
                 ),

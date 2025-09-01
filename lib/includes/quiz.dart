@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/includes/questions_screen.dart';
 import 'package:myapp/includes/results_screen.dart';
 import 'package:myapp/includes/start_screen.dart';
-import 'package:myapp/data/questions.dart';
+//import 'package:myapp/data/questions.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -15,34 +15,37 @@ class Quiz extends StatefulWidget {
 //Quiz State class
 class _QuizState extends State<Quiz> {
   Widget? activeScreen;
+  int? numberofquestions;
   @override
   void initState() {
     super.initState();
-    activeScreen = StartScreen(setScreen);
+    activeScreen = StartScreen(startQuiz: setScreen);
   }
 
   List<String> selectedAnswers = [];
 
-  void setScreen() {
+  void setScreen(int number) {
+    numberofquestions = number;
     setState(() {
-      activeScreen = QuestionsScreen(onSelectAnswer: chooseAnswers);
+      activeScreen = QuestionsScreen(onSelectAnswer: chooseAnswers, numQuestions: numberofquestions ?? 10,);
     });
   }
 
   void onRestart() {
     setState(() {
       selectedAnswers = [];
-      activeScreen = StartScreen(setScreen);
+      activeScreen = StartScreen(startQuiz: setScreen);
     });
   }
 
   void chooseAnswers(String answer) {
     selectedAnswers.add(answer);
-    if (selectedAnswers.length == questions.length) {
+    if (selectedAnswers.length == numberofquestions) {
       setState(() {
         activeScreen = ResultsScreen(
           choosenAnswers: selectedAnswers,
           restartQuiz: onRestart,
+          numQuestions: numberofquestions ?? 10,
         );
       });
     }
