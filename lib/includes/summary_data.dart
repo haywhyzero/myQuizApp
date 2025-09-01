@@ -34,7 +34,7 @@ class SummaryData extends StatelessWidget {
                         color:
                             iscorrect
                                 ? const Color.fromARGB(255, 16, 111, 53)
-                                : const Color.fromARGB(255, 148, 42, 19),
+                                : const Color.fromARGB(122, 11, 56, 77),
                       ),
                       child: Text(
                         ((data['question_index'] as int) + 1).toString(),
@@ -52,7 +52,7 @@ class SummaryData extends StatelessWidget {
                           Text(
                             data['question'] as String,
                             style: GoogleFonts.lato(
-                              color: Colors.white,
+                              color: const Color.fromARGB(211, 255, 255, 255),
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             )
@@ -61,13 +61,15 @@ class SummaryData extends StatelessWidget {
                           Text(
                             'Correct answer: ${data['correct_answer']}',
                             style: GoogleFonts.lato(
-                              color: Color.fromARGB(255, 202, 171, 252),
+                              color: Color.fromARGB(255, 14, 81, 29),
                             ),
                           ),
                           Text(
                             'Your answer: ${data['user_answer']}',
                             style: GoogleFonts.lato(
-                              color: Color.fromARGB(255, 181, 254, 246),
+                              color:data['correct_answer'] == data['user_answer' ] 
+                              ?Color.fromARGB(255, 14, 81, 29)
+                              :Color.fromARGB(255, 156, 16, 16),
                             ),
                           ),
                           SizedBox(height: 12),

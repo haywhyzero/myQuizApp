@@ -30,12 +30,23 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: EdgeInsets.all(40),
+        margin: EdgeInsets.fromLTRB(40, 160, 40, 40),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(currentQuestions.question,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text('Question ${currentQueIndex + 1} Out of ${questions.length}',
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 211, 224, 239)
+                ),
+                ),
+              ],
+            ),
+            SizedBox(height: 40),
+            Text(currentQuestions.question, // Displays the current Questions
             style: GoogleFonts.lato(
               color: Colors.white,
               fontSize: 26,
@@ -44,6 +55,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
             textAlign: TextAlign.center,
             ),
             SizedBox(height: 30),
+            // Shuffled answers but since map returns a list, we usee ... to put the list in the column list
             ...currentQuestions.getShuffledList().map((answer) {
               return AnswerButton(
                 answerText: answer,
